@@ -1,0 +1,39 @@
+import csv
+import json
+
+# Функція для запису даних у .csv файл
+def write_to_csv(filename):
+    data = [
+        ['Name', 'Age', 'Country'],
+        ['John', 30, 'USA'],
+        ['Emma', 25, 'Canada'],
+        ['Alex', 28, 'UK']
+    ]
+
+    try:
+        with open(filename, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(data)
+        print(f'Data has been written to {filename}')
+    except Exception as e:
+        print(f'Error writing to CSV file: {e}')
+
+# Функція для конвертації .csv в .json
+def csv_to_json(csv_filename, json_filename):
+    try:
+        with open(csv_filename, 'r') as file:
+            reader = csv.DictReader(file)
+            data = list(reader)
+
+            with open(json_filename, 'w') as json_file:
+                json.dump(data, json_file, indent=4)
+            print(f'CSV data has been converted to {json_filename}')
+    except Exception as e:
+        print(f'Error converting to JSON: {e}')
+
+# Виклик функцій для запису у .csv та конвертації в .json
+csv_file = 'data.csv'
+json_file = 'data.json'
+
+write_to_csv(csv_file)
+csv_to_json(csv_file, json_file)
